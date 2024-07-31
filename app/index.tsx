@@ -1,32 +1,40 @@
+import React, { useState, useEffect } from 'react';
 import { getPokemonImage } from '@/api/pokeapi';
-import { PokemonContext } from '@/contexts/PokemonContext';
-import { Link } from 'expo-router';
-import React, { useContext } from 'react';
-import { Text, View, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Image } from 'react-native';
+
+interface Pokemon {
+  name: string;
+  url: string;
+}
 
 export default function Home() {
-  const { pokemonList } = useContext(PokemonContext)!;
+  const pokemonList: Pokemon[] = [
+    { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
+    { name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/" },
+    { name: "venusaur", url: "https://pokeapi.co/api/v2/pokemon/3/" },
+    { name: "charmander", url: "https://pokeapi.co/api/v2/pokemon/4/" },
+    { name: "charmeleon", url: "https://pokeapi.co/api/v2/pokemon/5/" },
+    { name: "charizard", url: "https://pokeapi.co/api/v2/pokemon/6/" },
+    { name: "squirtle", url: "https://pokeapi.co/api/v2/pokemon/7/" },
+    { name: "wartortle", url: "https://pokeapi.co/api/v2/pokemon/8/" },
+    { name: "blastoise", url: "https://pokeapi.co/api/v2/pokemon/9/" },
+    { name: "caterpie", url: "https://pokeapi.co/api/v2/pokemon/10/" },
+    { name: "metapod", url: "https://pokeapi.co/api/v2/pokemon/11/" },
+    { name: "butterfree", url: "https://pokeapi.co/api/v2/pokemon/12/" },
+    { name: "weedle", url: "https://pokeapi.co/api/v2/pokemon/13/" },
+    { name: "kakuna", url: "https://pokeapi.co/api/v2/pokemon/14/" },
+    { name: "beedrill", url: "https://pokeapi.co/api/v2/pokemon/15/" },
+  ];
 
-  const renderItem = ({ item }: { item: { name: string, url: string } }) => (
+  const renderItem = ({ item }: { item: Pokemon }) => (
     <View style={styles.item}>
       <View style={styles.grayBackground}/>
-      <Link href={{ pathname: '/pokemon/[name]', params: { name: item.name } }}>
         <View style={styles.itemColumn}>
           <Image source={{ uri: `${getPokemonImage(item.url)}` }} style={styles.image} />
           <Text style={styles.text}>{item.name}</Text>
         </View>
-      </Link>
     </View>
   );
-
-  if (pokemonList.length == 0) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="white" />
-        <Text style={styles.loadingText}>Loading...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
