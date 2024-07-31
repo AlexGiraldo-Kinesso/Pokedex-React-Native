@@ -14,6 +14,16 @@ export default function RootLayout() {
           headerTitleStyle: { color: 'white', fontWeight: 'bold' }
         }} 
       />
+    <Stack.Screen 
+        name="pokemon/PokemonDetail"
+        options={{ 
+          headerShadowVisible: false,
+          headerTintColor: 'white',
+          headerStyle: { backgroundColor: '#DC0A2D' }, 
+          headerBackTitleVisible: false, 
+          title: ''
+        }}
+      />
     </Stack>
   );
 }
